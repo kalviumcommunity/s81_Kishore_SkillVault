@@ -99,3 +99,6 @@ Having a supportive atmosphere and provision of good skills to learn effectively
 
 Deployed frontend link:-
 https://darling-fenglisu-596658.netlify.app/
+
+
+created components in frontend
