@@ -96,3 +96,6 @@ Having a supportive atmosphere and provision of good skills to learn effectively
 | Sun | Plan roadmap for next quarter (new features, mobile app, etc.) |
 
 
+
+Deployed frontend link:-
+https://darling-fenglisu-596658.netlify.app/
