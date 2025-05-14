@@ -42,7 +42,39 @@ app.get('/course',async(req,res)=>{
 })
 app.listen(PORT,()=>{
     console.log(`Server is running at http://localhost:${PORT}`)
+
 })
+
+app.put('/:id', async (req, res) => {
+    const { id } = req.params;
+    const { title, description, imageUrl, difficulty, category, content, tokens } = req.body;
+  
+    try {
+      const updatedCourse = await Course.findByIdAndUpdate(
+        id,
+        {
+          title,
+          description,
+          imageUrl,
+          difficulty,
+          category,
+          content,
+          tokens,
+        },
+        { new: true }  
+      );
+  
+      if (!updatedCourse) {
+        return res.status(404).json({ message: 'Course not found' });
+      }
+  
+      res.status(200).json(updatedCourse);
+    } catch (error) {
+      console.error('Error updating course:', error.message);
+      res.status(500).json({ message: 'Server error' });
+    }
+  });
+  
 
 mongoose.connect(process.env.mongo_url)
 .then(()=>{
