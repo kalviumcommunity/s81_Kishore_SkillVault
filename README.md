@@ -102,3 +102,7 @@ https://darling-fenglisu-596658.netlify.app/
 
 
 created components in frontend
+
+
+
+post routes created
