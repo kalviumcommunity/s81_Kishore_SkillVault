@@ -13,7 +13,28 @@ dotenv.config();
 app.get('/',(req,res)=>{
     res.send("Welcome to the server.")
 })
+app.post('/add', async (req, res) => {
+  const {  title, description, imageUrl, difficulty, category, content,tokens } = req.body;
 
+  const newCourse = new Course({
+      title,
+      description,
+      imageUrl,
+      difficulty,
+      category,
+      content,
+      tokens,
+    });
+
+  try {
+      
+  const savedCourse = await newCourse.save();
+  res.status(201).json(savedCourse);
+  }catch (error) {
+      console.error('Error creating course:', error.message);
+      res.status(500).json({ message: 'Server error' });
+    }
+});
 
 app.get('/course',async(req,res)=>{
     let data= await Course.find()
