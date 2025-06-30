@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 function GetStarted() {
     return (
       <div className="p-4">
