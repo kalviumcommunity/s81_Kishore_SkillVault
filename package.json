@@ -1,4 +1,12 @@
 {
+  "name": "skillvault",
+  "version": "1.0.0",
+  "description": "SkillVault - Unlock Skills with Every Task",
+  "scripts": {
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "start": "node server/server.js"
+  },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
