@@ -1,0 +1,9 @@
+node_modules/
+server/node_modules/
+client/node_modules/
+client/skillvault/node_modules/
+coverage/
+server/coverage/
+.DS_Store
+*.log
+.env
