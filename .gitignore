@@ -4,6 +4,8 @@ client/node_modules/
 client/skillvault/node_modules/
 coverage/
 server/coverage/
+dist/
+client/skillvault/dist/
 .DS_Store
 *.log
 .env

@@ -97,12 +97,81 @@ Having a supportive atmosphere and provision of good skills to learn effectively
 
 
 
-Deployed frontend link:-
+deployed frontend link:-
 https://darling-fenglisu-596658.netlify.app/
-
 
 created components in frontend
 
-
-
 post routes created
+
+---
+
+## Docker & Containerization Support
+
+SkillVault is fully containerized using multi-stage Docker builds and Docker Compose for orchestration.
+
+### Container Architecture
+The platform runs three isolated services communicating over the `skillvault-network` bridge network:
+
+1. **Frontend Container (`skillvault-frontend`)**:
+   - Multi-stage Dockerfile: Node.js 20 build stage compiles Vite React SPA -> lightweight Nginx 1.27 Alpine runtime.
+   - Built-in reverse proxy routing `/api/` and `/course` traffic to the backend service.
+   - SPA route fallback (`try_files $uri $uri/ /index.html`).
+   - Exposes port `80` (mapped to host `3000`).
+   - Healthcheck: HTTP probe on port 80.
+
+2. **Backend Container (`skillvault-backend`)**:
+   - Node.js 20 Alpine runtime running as non-root `node` user.
+   - Express REST API with token rewards, task completion, course unlocking, and auth validation services.
+   - Exposes port `5000` (mapped to host `5000`).
+   - Healthcheck: HTTP probe on `http://localhost:5000/`.
+
+3. **Database Container (`skillvault-database`)**:
+   - Official MongoDB 7 (Ubuntu Jammy) image.
+   - Persistent volume `mongo_data` mounted at `/data/db` for data durability across restarts.
+   - Exposes port `27017` (mapped to host `27017`).
+   - Healthcheck: `mongosh --eval "db.adminCommand('ping')"`.
+
+### Quick Start with Docker Compose
+
+1. **Clone and enter repository:**
+   ```bash
+   cd s81_Kishore_SkillVault
+   ```
+
+2. **Configure environment (optional):**
+   ```bash
+   cp .env.example .env
+   ```
+
+3. **Build the container images:**
+   ```bash
+   docker compose build
+   ```
+
+4. **Launch all services in detached mode:**
+   ```bash
+   docker compose up -d
+   ```
+
+5. **Verify running containers and health status:**
+   ```bash
+   docker compose ps
+   ```
+
+6. **Access application:**
+   - **Frontend Web App:** [http://localhost:3000](http://localhost:3000)
+   - **Backend API Health:** [http://localhost:5000/](http://localhost:5000/)
+   - **API Course Listing:** [http://localhost:5000/course](http://localhost:5000/course)
+
+7. **View container logs:**
+   ```bash
+   docker compose logs -f
+   ```
+
+8. **Stop and clean up containers:**
+   ```bash
+   docker compose down
+   ```
+   *(To remove persistent volume as well, run `docker compose down -v`)*
+
